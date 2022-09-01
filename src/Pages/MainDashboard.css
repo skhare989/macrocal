@@ -1,0 +1,8 @@
+
+.main-content-container{
+    display: flex;
+    width: 100%;
+}
+.macrotable-container{
+    min-width: 50%
+}

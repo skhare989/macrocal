@@ -1,0 +1,16 @@
+.portion-modifier-container{
+    display: block;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+.food-image{
+    border-radius: 8px;
+    padding: 4px;
+}
+.food-details-container{
+    display: flex;
+    padding: 8px;
+}
+.food-details-section-1{
+
+}
