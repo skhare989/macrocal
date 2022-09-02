@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchSearchAutoComplete,
@@ -13,7 +13,10 @@ const SearchBar = () => {
     return state.userInfoUpdate;
   });
 
+  const [searchInput, setSearchInput] = useState("");
+
   const selectFoodItem = (e) => {
+    setSearchInput(e.target.innerHTML);
     dispatch(fetchFoodItemDetails(e.target.innerHTML));
     dispatch(updateSuggestionAfterClick());
   };
@@ -37,7 +40,11 @@ const SearchBar = () => {
         className="search-input"
         type="text"
         placeholder="Search Food Items"
-        onChange={(e) => handleChange(e)}
+        value={searchInput}
+        onChange={(e) => {
+          setSearchInput(e.target.value);
+          handleChange(e);
+        }}
       />
 
       <ul

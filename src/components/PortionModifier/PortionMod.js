@@ -1,5 +1,5 @@
-import { Button, Input, Select } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Button, Heading, Input, Select } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToMeal } from "../../reducers/userInfoUpdate";
 import "./PortionMod.css";
@@ -8,6 +8,8 @@ const PortionMod = () => {
   const state = useSelector((state) => {
     return state.userInfoUpdate;
   });
+
+  console.log("render");
 
   const dispatch = useDispatch();
 
@@ -19,6 +21,15 @@ const PortionMod = () => {
   const [totalCals, setTotalCals] = useState(foodItem?.nutrients?.ENERC_KCAL);
   const [mealType, setMealType] = useState("");
   const [numberOfServings, setNumberOfServings] = useState(0);
+
+  useEffect(() => {
+    setProtein(foodItem?.nutrients?.PROCNT);
+    setFats(foodItem?.nutrients?.FAT);
+    setCarbs(foodItem?.nutrients?.CHOCDF);
+    setTotalCals(foodItem?.nutrients?.ENERC_KCAL);
+    setMealType("");
+    setNumberOfServings("");
+  }, [foodItem]);
 
   const meals = [
     {
@@ -37,12 +48,17 @@ const PortionMod = () => {
 
   const handleServingChange = (e) => {
     const noOfServings = Number(e.target.value);
-    if (typeof noOfServings == "number") {
+    setNumberOfServings(noOfServings);
+    if (typeof noOfServings == "number" && noOfServings !== 0) {
       setProtein(protein * noOfServings);
       setFats(fats * noOfServings);
       setCarbs(carbs * noOfServings);
       setTotalCals(totalCals * noOfServings);
-      setNumberOfServings(noOfServings);
+    } else {
+      setProtein(foodItem?.nutrients?.PROCNT);
+      setFats(foodItem?.nutrients?.FAT);
+      setCarbs(foodItem?.nutrients?.CHOCDF);
+      setTotalCals(foodItem?.nutrients?.ENERC_KCAL);
     }
   };
 
@@ -68,6 +84,9 @@ const PortionMod = () => {
 
   return (
     <div className="portion-modifier-container">
+      <div>
+        <Heading size={"md"}>{foodItem.label}</Heading>
+      </div>
       <div className="food-image">
         <img src={foodItem.image} alt={foodItem.label}></img>
       </div>
@@ -77,7 +96,8 @@ const PortionMod = () => {
             <Input
               type="text"
               placeholder="Enter Servings"
-              onKeyUp={(e) => {
+              value={numberOfServings}
+              onChange={(e) => {
                 handleServingChange(e);
               }}></Input>
           </div>
