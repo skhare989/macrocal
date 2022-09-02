@@ -10,7 +10,12 @@ import {
 
 import "./MacroTable.css";
 import Meal from "./Meal/Meal.js";
+import { useSelector } from "react-redux";
 const MacroTable = () => {
+  const meals = useSelector((state) => {
+    return state.userInfoUpdate?.meals;
+  });
+
   return (
     <div className="macro-table-container">
       <Heading size="sm">Your Calorie Intake:</Heading>
@@ -24,15 +29,13 @@ const MacroTable = () => {
 
           <TabPanels>
             <TabPanel>
-              <Meal mealType="Breakfast" mealMacros="abcd"></Meal>
+              <Meal mealItems={meals.breakfast}></Meal>
             </TabPanel>
             <TabPanel>
-              <Meal mealType="Lunch" mealMacros="abcd">
-                {" "}
-              </Meal>
+              <Meal mealItems={meals.lunch}> </Meal>
             </TabPanel>
             <TabPanel>
-              <Meal mealType="Dinner" mealMacros="abcd"></Meal>
+              <Meal mealItems={meals.dinner}></Meal>
             </TabPanel>
           </TabPanels>
         </Tabs>

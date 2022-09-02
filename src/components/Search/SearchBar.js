@@ -1,6 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSearchAutoComplete } from "../../reducers/userInfoUpdate";
+import {
+  fetchSearchAutoComplete,
+  fetchFoodItemDetails,
+  updateSuggestionAfterClick,
+} from "../../reducers/userInfoUpdate";
 import "./SearchBar.css";
 
 const SearchBar = () => {
@@ -10,7 +14,8 @@ const SearchBar = () => {
   });
 
   const selectFoodItem = (e) => {
-    console.log(e.target.innerHTML);
+    dispatch(fetchFoodItemDetails(e.target.innerHTML));
+    dispatch(updateSuggestionAfterClick());
   };
   const debounce = (cb, delay = 1000) => {
     let timeout;

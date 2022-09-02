@@ -1,5 +1,6 @@
 .portion-modifier-container{
     display: block;
+    padding: 8px;
     border: 1px solid gray;
     border-radius: 8px;
 }
@@ -11,6 +12,11 @@
     display: flex;
     padding: 8px;
 }
-.food-details-section-1{
-
+.food-image{
+    height: 200px;
+    width: 200px;
+}
+.food-image img{
+    height: 200px;
+    width: 100%;
 }

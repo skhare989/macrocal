@@ -18,6 +18,7 @@ const MainDashboard = () => {
     dispatch(fetchUserById(state._id));
   });
 
+  const showPortionModifierComponent = state.searchFoodItemDetails;
   return (
     <div>
       <Header />
@@ -29,7 +30,9 @@ const MainDashboard = () => {
         </div>
         <div>
           <SearchBar />
-          <PortionMod></PortionMod>
+          {showPortionModifierComponent.parsed !== undefined ? (
+            <PortionMod />
+          ) : null}
         </div>
       </div>
     </div>
